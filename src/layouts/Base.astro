@@ -1,4 +1,11 @@
 ---
+// Fonts are bundled with the site (not fetched from Google), so the handwriting
+// always shows up, loads faster, and nothing is sent to a third party.
+import '@fontsource/lora/400.css';
+import '@fontsource/lora/400-italic.css';
+import '@fontsource/lora/600.css';
+import '@fontsource/caveat/500.css';
+import '@fontsource/caveat/700.css';
 import '../styles/global.css';
 import { site, sections, url } from '../site';
 
@@ -20,12 +27,6 @@ const here = Astro.url.pathname;
     <meta name="description" content={description} />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
     <title>{pageTitle}</title>
   </head>
   <body>
@@ -52,7 +53,10 @@ const here = Astro.url.pathname;
     </main>
 
     <footer class="site-footer">
-      <div class="wrap">written by hand, kept with care</div>
+      <div class="wrap">
+        <span class="porch" aria-hidden="true"></span>
+        the porch light is always on
+      </div>
     </footer>
   </body>
 </html>

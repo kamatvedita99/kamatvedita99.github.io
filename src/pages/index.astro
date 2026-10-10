@@ -10,21 +10,60 @@ const sectionNames = Object.fromEntries(sections.map((s) => [s.slug, s.name]));
 
 <Base>
   <section class="doorway">
+    <!-- A lit window with a lamp and a plant: the first thing you see when you come in. -->
+    <svg class="scene" viewBox="0 0 260 170" role="img" aria-label="A glowing window with a lamp and a small plant on the sill">
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="60%" r="65%">
+          <stop offset="0" stop-color="#ffe2a3" />
+          <stop offset="1" stop-color="#f2b165" />
+        </radialGradient>
+      </defs>
+      <path d="M70 150 V70 a60 60 0 0 1 120 0 V150 Z" fill="var(--frame)" />
+      <path d="M78 150 V70 a52 52 0 0 1 104 0 V150 Z" fill="url(#glow)" />
+      <path d="M130 18 V150 M78 92 H182" stroke="var(--frame)" stroke-width="5" />
+      <rect x="56" y="148" width="148" height="11" rx="3" fill="var(--frame)" />
+      <!-- plant -->
+      <path d="M105 128 C94 112 91 100 99 88 C108 99 109 114 105 128 Z" fill="#5f7a6a" />
+      <path d="M105 128 C112 114 121 108 130 110 C125 120 117 126 105 128 Z" fill="#6f8c7a" />
+      <path d="M105 128 C100 118 90 116 84 118 C88 126 96 129 105 128 Z" fill="#547063" />
+      <rect x="93" y="127" width="24" height="21" rx="3" fill="#b5573a" />
+      <!-- lamp -->
+      <polygon points="141,128 151,100 171,100 181,128" fill="#c9764f" />
+      <rect x="160" y="128" width="2.5" height="14" fill="#7a5a44" />
+      <ellipse cx="161" cy="144" rx="10" ry="3.5" fill="#7a5a44" />
+    </svg>
+
     <h1>{site.title}</h1>
-    <p class="welcome">{site.welcome}</p>
+    <p class="welcome" id="greeting">{site.welcome}</p>
   </section>
 
   <section class="rooms" aria-label="Rooms">
     {
       sections.map((s) => (
-        <a class="room" href={url(`/${s.slug}/`)}>
-          <h2>{s.name}</h2>
-          <p>{s.blurb}</p>
+        <a class="door" style={`--door:${s.door}`} href={url(`/${s.slug}/`)}>
+          <span class="door-name">{s.name}</span>
+          <span class="door-blurb">{s.blurb}</span>
+          <span class="knob" aria-hidden="true" />
         </a>
       ))
     }
   </section>
 
-  <h2 class="section-label">Lately</h2>
-  <EntryList entries={recent} showSection sectionNames={sectionNames} />
+  <section class="notebook" aria-label="Latest entries">
+    <h2 class="section-label">Lately</h2>
+    <EntryList entries={recent} showSection sectionNames={sectionNames} />
+  </section>
 </Base>
+
+<script>
+  // A greeting that follows the clock on whoever's phone is reading it.
+  const h = new Date().getHours();
+  const line =
+    h < 5 ? 'Still up? Come in. It is quiet here.'
+    : h < 12 ? 'Good morning. Take your time.'
+    : h < 17 ? 'Good afternoon. Sit down for a minute.'
+    : h < 21 ? 'Good evening. Put your bag down.'
+    : 'Late night. The lamp is on.';
+  const el = document.getElementById('greeting');
+  if (el) el.textContent = line;
+</script>

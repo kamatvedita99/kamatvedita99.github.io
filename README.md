@@ -101,6 +101,8 @@ Tip: use your browser's "Add to Home Screen" on the Pages CMS page so it opens l
 ## Good to know
 
 - **Everything is public.** On a free GitHub account the repo has to be public for Pages, which means the `.md` source files are readable on GitHub as well as the website, **including entries marked `draft: true`**. Use `draft` only to hide something from the site, not to keep it private.
-- **Fonts** (Lora and Caveat) load from Google Fonts. If they can't load, the site falls back to Georgia and a cursive system font and still looks fine.
+- **Fonts** (Lora for text, Caveat for the handwriting) are bundled into the site through the `@fontsource` packages, so they always load and nothing is fetched from a third party.
+- **Door colours and stamps.** Each room's door colour (and the optional ink stamp, like "never sent") is set per room in `src/site.ts`.
+- **The look is all in `src/styles/global.css`.** Colours are tokens at the top, with a second set for dark mode. The window scene on the home page is a small SVG in `src/pages/index.astro`.
 - **Images** aren't set up yet. When you want photos in entries, that's a small addition (a `media` setting in `.pages.yml` plus a folder in `public/`).
 - **Site name.** It's "My Journal" for now. Change `title`, `tagline` and `welcome` at the top of `src/site.ts`.

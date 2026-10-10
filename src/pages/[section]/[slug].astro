@@ -29,12 +29,13 @@ const { Content } = await render(entry);
 ---
 
 <Base title={entry.data.title} description={entry.data.note}>
-  <article>
+  <article class="page" style={`--door:${section.door}`}>
     <header class="entry-head">
       <a class="crumb" href={url(`/${section.slug}/`)}>← {section.name}</a>
       <h1>{entry.data.title}</h1>
       <span class="entry-date">{formatDate(entry.data.date)}</span>
       {entry.data.note && <span class="entry-note">{entry.data.note}</span>}
+      {section.stamp && <span class="stamp" aria-hidden="true">{section.stamp}</span>}
     </header>
 
     <div class="prose">
