@@ -75,3 +75,47 @@ content:
       - name: body
         label: My thoughts (optional)
         type: rich-text
+
+  - name: thank-you-notes
+    label: Thank-You Notes
+    type: collection
+    path: src/content/entries/thank-you-notes
+    filename: "{year}-{month}-{day}-{primary}.md"
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: date
+        label: Date
+        type: date
+      - name: note
+        label: One-line note (optional)
+        type: string
+      - name: draft
+        label: Keep as draft (hidden from the site)
+        type: boolean
+      - name: body
+        label: The note
+        type: rich-text
+
+  - name: kitchen
+    label: The Kitchen
+    type: collection
+    path: src/content/entries/kitchen
+    filename: "{year}-{month}-{day}-{primary}.md"
+    fields:
+      - name: title
+        label: Dish
+        type: string
+      - name: date
+        label: Date cooked
+        type: date
+      - name: note
+        label: One-line verdict (optional)
+        type: string
+      - name: draft
+        label: Keep as draft (hidden from the site)
+        type: boolean
+      - name: body
+        label: How it went, and what to change next time
+        type: rich-text

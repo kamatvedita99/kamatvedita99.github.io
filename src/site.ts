@@ -34,11 +34,24 @@ export const sections: Section[] = [
     stamp: 'never sent',
   },
   {
+    slug: 'thank-you-notes',
+    name: 'Thank-You Notes',
+    blurb: 'Gratitude, written down.',
+    door: '#8f6420',
+    stamp: 'with thanks',
+  },
+  {
     slug: 'curious-mind',
     name: 'The Curious Mind',
     blurb: 'Articles, essays, books and ideas that make me think.',
     door: '#4f6f8f',
     shelves: ['To read', 'Books', 'Read & remembered'],
+  },
+  {
+    slug: 'kitchen',
+    name: 'The Kitchen',
+    blurb: 'What I cooked, and what I learned.',
+    door: '#85506b',
   },
   // { slug: 'bucket-list', name: 'Bucket List', blurb: 'Someday, one by one.', door: '#8a6a3c' },
 ];

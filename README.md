@@ -80,7 +80,7 @@ Name the repo `<your-username>.github.io` if you'd like the site at the root add
 ## Write from your phone
 
 1. Go to [app.pagescms.org](https://app.pagescms.org) in your phone browser and sign in with GitHub.
-2. Open this repo. You'll see **Journal** and **Letters I Never Sent**, because `.pages.yml` describes them.
+2. Open this repo. You'll see one collection per room (Journal, Letters I Never Sent, Thank-You Notes, The Curious Mind, The Kitchen), because `.pages.yml` describes them.
 3. Tap a room, tap **Add entry**, write, tap **Save**.
 4. Saving commits the file to GitHub, which triggers the workflow, and the entry is on the site in a minute or two.
 
