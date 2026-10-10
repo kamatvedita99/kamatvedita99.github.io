@@ -1,6 +1,6 @@
 // The few words that make the site yours. Change them here and they change everywhere.
 export const site = {
-  title: 'My Journal',
+  title: 'My Safe Space',
   tagline: 'A quiet place to put things down.',
   // shown until the time-of-day greeting takes over (see index.astro)
   welcome: 'Come in. Close the door behind you.',

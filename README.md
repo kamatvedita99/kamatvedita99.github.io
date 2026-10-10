@@ -1,4 +1,4 @@
-# My Journal
+# My Safe Space
 
 A small, quiet website that works like a house. Each section is a **room** (Journal, Letters I Never Sent, and whatever you add later), and each entry is one plain text file.
 
@@ -105,4 +105,4 @@ Tip: use your browser's "Add to Home Screen" on the Pages CMS page so it opens l
 - **Door colours and stamps.** Each room's door colour (and the optional ink stamp, like "never sent") is set per room in `src/site.ts`.
 - **The look is all in `src/styles/global.css`.** Colours are tokens at the top, with a second set for dark mode. The window scene on the home page is a small SVG in `src/pages/index.astro`.
 - **Images** aren't set up yet. When you want photos in entries, that's a small addition (a `media` setting in `.pages.yml` plus a folder in `public/`).
-- **Site name.** It's "My Journal" for now. Change `title`, `tagline` and `welcome` at the top of `src/site.ts`.
+- **Site name.** It is "My Safe Space". Change `title`, `tagline` and `welcome` at the top of `src/site.ts`.
