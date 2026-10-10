@@ -124,15 +124,16 @@ main { padding: 2rem 0 1rem; }
 
 /* ---------- the doors: one per room ---------- */
 .rooms {
-  display: grid;
-  /* two doors per row, even on a phone; more rooms simply wrap onto a new row */
-  grid-template-columns: repeat(2, minmax(0, 12rem));
+  /* two doors per row on a phone, three on a wider screen; a lone last door stays centred */
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
-  margin: 2.25rem 0 3rem;
-  border-bottom: 4px solid var(--line); /* the floor the doors stand on */
+  gap: 1.9rem 1rem;
+  margin: 2.25rem 0 3.25rem;
 }
 .door {
+  flex: 0 1 calc(50% - 0.5rem);
+  max-width: 12rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -156,6 +157,20 @@ main { padding: 2rem 0 1rem; }
   border: 1.5px solid rgba(255, 248, 239, 0.3);
   border-radius: 50% 50% 2px 2px / 2.8rem 2.8rem 2px 2px;
   pointer-events: none;
+}
+.door::after {
+  /* a doormat under each door, so every row of doors has something to stand on */
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -0.7rem;
+  height: 0.45rem;
+  border-radius: 0.25rem;
+  background: var(--line);
+}
+@media (min-width: 34rem) {
+  .door { flex-basis: 11.5rem; }
 }
 .door:hover,
 .door:focus-visible {
@@ -216,7 +231,27 @@ main { padding: 2rem 0 1rem; }
 .entry-title { font-size: 1.2rem; font-weight: 600; }
 .entry-date, .entry-note { display: block; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.55; }
 .entry-note { font-style: italic; }
-.empty { color: var(--ink-soft); font-style: italic; }
+.empty { color: var(--ink-soft); font-style: italic; margin: 0.25rem 0 0; }
+
+/* shelves inside a room (e.g. The Curious Mind) */
+.shelf { margin: 0 0 2.25rem; }
+.shelf .section-label { border-bottom: 1px solid var(--line); margin-bottom: 0.4rem; }
+.shelf-tag {
+  display: inline-block;
+  margin-top: 0.4rem;
+  padding: 0 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.source {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
 
 .page-title {
   font-family: var(--hand);

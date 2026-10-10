@@ -19,6 +19,9 @@ export type Section = {
   door: string;
   // optional ink stamp shown on every page in this room
   stamp?: string;
+  // optional shelves: the room's page groups entries under these headings.
+  // An entry picks its shelf with `shelf: "..."` in its header.
+  shelves?: string[];
 };
 
 export const sections: Section[] = [
@@ -30,8 +33,14 @@ export const sections: Section[] = [
     door: '#5f7a6a',
     stamp: 'never sent',
   },
-  // { slug: 'bookmarks', name: 'Bookmarks', blurb: 'Things worth coming back to.', door: '#c9973f' },
-  // { slug: 'bucket-list', name: 'Bucket List', blurb: 'Someday, one by one.', door: '#5b7690' },
+  {
+    slug: 'curious-mind',
+    name: 'The Curious Mind',
+    blurb: 'Articles, essays, books and ideas that make me think.',
+    door: '#4f6f8f',
+    shelves: ['To read', 'Books', 'Read & remembered'],
+  },
+  // { slug: 'bucket-list', name: 'Bucket List', blurb: 'Someday, one by one.', door: '#8a6a3c' },
 ];
 
 // Turns a path like "/journal/" into one that also works when the site

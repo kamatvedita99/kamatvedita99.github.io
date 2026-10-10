@@ -11,10 +11,35 @@ export function getStaticPaths() {
 
 const { section } = Astro.props;
 const entries = await getEntries(section.slug);
+
+// Rooms with shelves show one heading per shelf. Anything on an unknown shelf
+// (or none) goes under "More", so nothing ever disappears from the page.
+let groups: { name: string; entries: typeof entries }[] | null = null;
+if (section.shelves) {
+  const known = new Set(section.shelves);
+  groups = section.shelves.map((name) => ({
+    name,
+    entries: entries.filter((e) => e.data.shelf === name),
+  }));
+  const rest = entries.filter((e) => !e.data.shelf || !known.has(e.data.shelf));
+  if (rest.length) groups.push({ name: 'More', entries: rest });
+}
 ---
 
 <Base title={section.name} description={section.blurb}>
   <h1 class="page-title">{section.name}</h1>
   <p class="page-blurb">{section.blurb}</p>
-  <EntryList entries={entries} />
+
+  {
+    groups ? (
+      groups.map((g) => (
+        <section class="shelf">
+          <h2 class="section-label">{g.name}</h2>
+          <EntryList entries={g.entries} emptyText="Nothing on this shelf yet." />
+        </section>
+      ))
+    ) : (
+      <EntryList entries={entries} />
+    )
+  }
 </Base>

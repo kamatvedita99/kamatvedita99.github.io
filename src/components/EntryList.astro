@@ -6,14 +6,20 @@ interface Props {
   entries: Entry[];
   showSection?: boolean;
   sectionNames?: Record<string, string>;
+  emptyText?: string;
 }
 
-const { entries, showSection = false, sectionNames = {} } = Astro.props;
+const {
+  entries,
+  showSection = false,
+  sectionNames = {},
+  emptyText = 'Nothing here yet. The first page is waiting for you.',
+} = Astro.props;
 ---
 
 {
   entries.length === 0 ? (
-    <p class="empty">Nothing here yet. The first page is waiting for you.</p>
+    <p class="empty">{emptyText}</p>
   ) : (
     <ul class="entry-list">
       {entries.map((e) => (

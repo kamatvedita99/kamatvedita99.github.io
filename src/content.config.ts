@@ -11,6 +11,10 @@ const entries = defineCollection({
     date: z.coerce.date(),
     // optional one-liner shown under the title and on listing pages
     note: z.string().optional(),
+    // which shelf of a room the entry sits on (only rooms with shelves use this)
+    shelf: z.string().optional(),
+    // a link to the original article or book page; an empty box in the editor is fine
+    link: z.union([z.string().url(), z.literal('')]).optional(),
     // set to true to keep an entry out of the site while you're still writing it
     draft: z.boolean().default(false),
   }),

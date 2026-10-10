@@ -35,6 +35,14 @@ const { Content } = await render(entry);
       <h1>{entry.data.title}</h1>
       <span class="entry-date">{formatDate(entry.data.date)}</span>
       {entry.data.note && <span class="entry-note">{entry.data.note}</span>}
+      {entry.data.shelf && <span class="shelf-tag">{entry.data.shelf}</span>}
+      {
+        entry.data.link && (
+          <a class="source" href={entry.data.link} target="_blank" rel="noopener noreferrer">
+            Open the original ↗
+          </a>
+        )
+      }
       {section.stamp && <span class="stamp" aria-hidden="true">{section.stamp}</span>}
     </header>
 
