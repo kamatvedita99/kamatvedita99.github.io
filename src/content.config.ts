@@ -7,7 +7,7 @@ import { z } from 'astro/zod';
 const entries = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/entries' }),
   schema: z.object({
-    title: z.string(),
+    title: z.string().default('Untitled'),
     // a blank date (an empty box in the editor) becomes today, so it can't break a publish
     date: z.preprocess((v) => (v === '' || v == null ? new Date() : v), z.coerce.date()),
     // optional one-liner shown under the title and on listing pages
