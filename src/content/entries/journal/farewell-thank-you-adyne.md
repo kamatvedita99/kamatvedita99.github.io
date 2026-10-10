@@ -101,3 +101,25 @@ Keep in touch! And please don't hesitate to reach out - unless, of course, it's 
 Thanks,
 
 Vedita
+
+## The replies
+
+**Mike wrote back:**
+
+> Hi Vedita,
+>
+> It’s been an absolute pleasure. There’s so much to say, and not enough words. You’ve been an anchor member of the team. Your diligence, communication, critical thinking, willingness to keep learning to increase domain knowledge, your support and guidance to the rest of the team, your escalation of issues when it mattered. The number of items you’ve solved before I even woke up to read emails are countless. There were some truly challenging ones! No documentation + zero in-house knowledge to lean on in several instances, but we got through them together. I’m grateful for your contribution. I’m so sorry to see you go, but so excited for you and your future. It’s been a joy.
+>
+> Please keep in touch!
+>
+> Thanks,
+> Mike
+
+**Irene wrote back:**
+
+> Hi Vedita,
+>
+> Thank you for always supporting me, especially during a challenging time after some of our teammates left. I’m so grateful to have had you on the team and glad we had the chance to work together. I’ll definitely miss having you around!
+>
+> Best,
+> Irene
