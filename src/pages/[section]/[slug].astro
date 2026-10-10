@@ -48,3 +48,20 @@ const { Content } = await render(entry);
     {newer && <a class="next" href={url(`/${section.slug}/${newer.slug}/`)}>{newer.data.title} →</a>}
   </nav>
 </Base>
+
+<script>
+  // Ruled paper needs every block to be a whole number of lines tall. A picture is
+  // never exactly that, so pad the space under each one up to the next ruled line.
+  function snapImagesToLines() {
+    const line = parseFloat(getComputedStyle(document.documentElement).fontSize) * 2; // 2rem
+    document.querySelectorAll<HTMLImageElement>('.prose img').forEach((img) => {
+      const holder = img.parentElement;
+      if (!holder) return;
+      holder.style.paddingBottom = '0px';
+      const over = holder.getBoundingClientRect().height % line;
+      holder.style.paddingBottom = over < 0.5 ? '0px' : `${line - over}px`;
+    });
+  }
+  window.addEventListener('load', snapImagesToLines);
+  window.addEventListener('resize', snapImagesToLines);
+</script>

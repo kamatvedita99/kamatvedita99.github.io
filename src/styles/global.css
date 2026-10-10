@@ -279,7 +279,7 @@ main { padding: 2rem 0 1rem; }
   color: var(--ink-soft);
   font-style: italic;
 }
-.prose img { max-width: 100%; height: auto; border-radius: 4px; }
+.prose img { display: block; max-width: 100%; height: auto; border-radius: 4px; }
 .prose h2, .prose h3 {
   font-family: var(--hand);
   font-weight: 700;
