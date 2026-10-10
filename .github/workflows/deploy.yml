@@ -1,0 +1,35 @@
+name: Publish the journal
+
+# Runs every time something is saved to the main branch, whether that was a push
+# from your laptop or a "Save" tapped in Pages CMS on your phone.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SITE: https://${{ github.repository_owner }}.github.io
+      # If the repo is named <username>.github.io the site lives at the root,
+      # otherwise it lives under /<repo-name>/.
+      BASE: ${{ endsWith(github.repository, '.github.io') && '/' || format('/{0}', github.event.repository.name) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: withastro/action@v6
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

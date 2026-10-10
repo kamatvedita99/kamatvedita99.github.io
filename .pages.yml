@@ -1,0 +1,47 @@
+# Settings for Pages CMS (pagescms.org), the editor you'll use on your phone.
+# Each block below is one room. The "path" is the folder its entries live in.
+# When you add a new room to src/site.ts, copy one of these blocks for it.
+content:
+  - name: journal
+    label: Journal
+    type: collection
+    path: src/content/entries/journal
+    filename: "{year}-{month}-{day}-{primary}.md"
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: date
+        label: Date
+        type: date
+      - name: note
+        label: One-line note (optional)
+        type: string
+      - name: draft
+        label: Keep as draft (hidden from the site)
+        type: boolean
+      - name: body
+        label: Entry
+        type: rich-text
+
+  - name: letters
+    label: Letters I Never Sent
+    type: collection
+    path: src/content/entries/letters
+    filename: "{year}-{month}-{day}-{primary}.md"
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: date
+        label: Date
+        type: date
+      - name: note
+        label: One-line note (optional)
+        type: string
+      - name: draft
+        label: Keep as draft (hidden from the site)
+        type: boolean
+      - name: body
+        label: Letter
+        type: rich-text

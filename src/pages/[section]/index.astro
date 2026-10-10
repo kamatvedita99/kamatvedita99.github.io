@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import EntryList from '../../components/EntryList.astro';
+import { sections } from '../../site';
+import { getEntries } from '../../lib/entries';
+
+// Astro builds one page per room listed in src/site.ts.
+export function getStaticPaths() {
+  return sections.map((section) => ({ params: { section: section.slug }, props: { section } }));
+}
+
+const { section } = Astro.props;
+const entries = await getEntries(section.slug);
+---
+
+<Base title={section.name} description={section.blurb}>
+  <h1 class="page-title">{section.name}</h1>
+  <p class="page-blurb">{section.blurb}</p>
+  <EntryList entries={entries} />
+</Base>

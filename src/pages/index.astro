@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import EntryList from '../components/EntryList.astro';
+import { site, sections, url } from '../site';
+import { getEntries } from '../lib/entries';
+
+const recent = (await getEntries()).slice(0, 5);
+const sectionNames = Object.fromEntries(sections.map((s) => [s.slug, s.name]));
+---
+
+<Base>
+  <section class="doorway">
+    <h1>{site.title}</h1>
+    <p class="welcome">{site.welcome}</p>
+  </section>
+
+  <section class="rooms" aria-label="Rooms">
+    {
+      sections.map((s) => (
+        <a class="room" href={url(`/${s.slug}/`)}>
+          <h2>{s.name}</h2>
+          <p>{s.blurb}</p>
+        </a>
+      ))
+    }
+  </section>
+
+  <h2 class="section-label">Lately</h2>
+  <EntryList entries={recent} showSection sectionNames={sectionNames} />
+</Base>

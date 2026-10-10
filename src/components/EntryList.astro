@@ -1,0 +1,33 @@
+---
+import { url } from '../site';
+import { formatDate, type Entry } from '../lib/entries';
+
+interface Props {
+  entries: Entry[];
+  showSection?: boolean;
+  sectionNames?: Record<string, string>;
+}
+
+const { entries, showSection = false, sectionNames = {} } = Astro.props;
+---
+
+{
+  entries.length === 0 ? (
+    <p class="empty">Nothing here yet. The first page is waiting for you.</p>
+  ) : (
+    <ul class="entry-list">
+      {entries.map((e) => (
+        <li>
+          <a href={url(`/${e.section}/${e.slug}/`)}>
+            <span class="entry-title">{e.data.title}</span>
+            <span class="entry-date">
+              {formatDate(e.data.date)}
+              {showSection && sectionNames[e.section] ? ` · ${sectionNames[e.section]}` : ''}
+            </span>
+            {e.data.note && <span class="entry-note">{e.data.note}</span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}

@@ -1,0 +1,49 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { sections, url } from '../../site';
+import { getEntries, formatDate } from '../../lib/entries';
+
+// One page per entry, for every room.
+export async function getStaticPaths() {
+  const paths = [];
+  for (const section of sections) {
+    const entries = await getEntries(section.slug); // newest first
+    entries.forEach((entry, i) => {
+      paths.push({
+        params: { section: section.slug, slug: entry.slug },
+        props: {
+          entry,
+          section,
+          newer: entries[i - 1],
+          older: entries[i + 1],
+        },
+      });
+    });
+  }
+  return paths;
+}
+
+const { entry, section, newer, older } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Base title={entry.data.title} description={entry.data.note}>
+  <article>
+    <header class="entry-head">
+      <a class="crumb" href={url(`/${section.slug}/`)}>← {section.name}</a>
+      <h1>{entry.data.title}</h1>
+      <span class="entry-date">{formatDate(entry.data.date)}</span>
+      {entry.data.note && <span class="entry-note">{entry.data.note}</span>}
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+
+  <nav class="pager" aria-label="More in this room">
+    {older && <a href={url(`/${section.slug}/${older.slug}/`)}>← {older.data.title}</a>}
+    {newer && <a class="next" href={url(`/${section.slug}/${newer.slug}/`)}>{newer.data.title} →</a>}
+  </nav>
+</Base>

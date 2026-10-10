@@ -1,0 +1,159 @@
+/* Warm paper by day, lamplight by night. All colours live here as tokens. */
+:root {
+  --paper: #f6efe3;
+  --paper-deep: #efe4d1;
+  --ink: #3a2f27;
+  --ink-soft: #7a6a5c;
+  --accent: #b5573a;
+  --line: #e0d2bb;
+  --card: #fbf7ef;
+
+  --serif: 'Lora', Georgia, 'Times New Roman', serif;
+  --hand: 'Caveat', 'Segoe Script', cursive;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1f1a16;
+    --paper-deep: #181410;
+    --ink: #eadfce;
+    --ink-soft: #a8998a;
+    --accent: #e08a68;
+    --line: #3a3128;
+    --card: #28211b;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+
+.wrap {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 0 1.25rem; /* 20px gutter keeps text off the phone edge */
+}
+
+/* ---------- header / footer ---------- */
+.site-header {
+  padding: 1.5rem 0 1rem;
+  border-bottom: 1px solid var(--line);
+}
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+.brand {
+  font-family: var(--hand);
+  font-size: 1.9rem;
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1;
+}
+.nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; font-size: 0.95rem; }
+.nav a { color: var(--ink-soft); text-decoration: none; }
+.nav a:hover, .nav a[aria-current='page'] { color: var(--accent); }
+
+.site-footer {
+  margin-top: 5rem;
+  padding: 2rem 0 3rem;
+  text-align: center;
+  color: var(--ink-soft);
+  font-family: var(--hand);
+  font-size: 1.4rem;
+}
+
+main { padding: 2.5rem 0 1rem; }
+
+/* ---------- the doorway (home) ---------- */
+.doorway { text-align: center; padding: 2rem 0 1rem; }
+.doorway h1 {
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: clamp(2.8rem, 12vw, 4.5rem);
+  line-height: 1.05;
+  margin: 0 0 0.5rem;
+}
+.doorway .welcome { color: var(--ink-soft); font-style: italic; margin: 0; }
+
+.rooms { display: grid; gap: 1rem; margin: 2.5rem 0 3rem; }
+.room {
+  display: block;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 0 1px 0 var(--line);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.room:hover { transform: translateY(-2px); border-color: var(--accent); }
+.room h2 { font-family: var(--hand); font-size: 1.8rem; margin: 0; line-height: 1.2; }
+.room p { margin: 0.15rem 0 0; color: var(--ink-soft); font-size: 1rem; }
+
+.section-label {
+  font-family: var(--hand);
+  font-size: 1.6rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.5rem;
+}
+
+/* ---------- entry lists ---------- */
+.entry-list { list-style: none; margin: 0; padding: 0; }
+.entry-list li { padding: 1rem 0; border-bottom: 1px dashed var(--line); }
+.entry-list a { text-decoration: none; color: var(--ink); }
+.entry-list a:hover .entry-title { color: var(--accent); }
+.entry-title { font-size: 1.2rem; font-weight: 600; }
+.entry-date, .entry-note { display: block; color: var(--ink-soft); font-size: 0.95rem; }
+.entry-note { font-style: italic; }
+.empty { color: var(--ink-soft); font-style: italic; }
+
+.page-title { font-family: var(--hand); font-size: 2.6rem; line-height: 1.1; margin: 0 0 0.25rem; }
+.page-blurb { color: var(--ink-soft); font-style: italic; margin: 0 0 2rem; }
+
+/* ---------- a single entry ---------- */
+.entry-head { margin-bottom: 2rem; }
+.entry-head .crumb { font-size: 0.95rem; color: var(--ink-soft); }
+.entry-head h1 { font-size: 2rem; line-height: 1.25; margin: 0.25rem 0 0.5rem; }
+
+.prose p { margin: 0 0 1.25rem; }
+.prose strong { font-weight: 700; }
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.prose img { max-width: 100%; height: auto; border-radius: 4px; }
+.prose h2, .prose h3 { font-family: var(--hand); font-size: 1.9rem; margin: 2rem 0 0.5rem; line-height: 1.2; }
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+.pager a { max-width: 48%; }
+.pager .next { margin-left: auto; text-align: right; }
+
+::selection { background: var(--accent); color: var(--paper); }
