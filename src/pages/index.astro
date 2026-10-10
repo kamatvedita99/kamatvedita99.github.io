@@ -2,9 +2,10 @@
 import Base from '../layouts/Base.astro';
 import EntryList from '../components/EntryList.astro';
 import { site, sections, url } from '../site';
-import { getEntries } from '../lib/entries';
+import { getEntries, getLines, formatDate } from '../lib/entries';
 
 const recent = (await getEntries()).slice(0, 5);
+const today = (await getLines())[0]; // the newest one-liner, if there is one
 const sectionNames = Object.fromEntries(sections.map((s) => [s.slug, s.name]));
 ---
 
@@ -36,6 +37,16 @@ const sectionNames = Object.fromEntries(sections.map((s) => [s.slug, s.name]));
     <h1>{site.title}</h1>
     <p class="welcome" id="greeting">{site.welcome}</p>
   </section>
+
+  {
+    today && (
+      <a class="today" href={url(`/${today.section}/lines/`)}>
+        <span class="today-label">one line today</span>
+        <span class="today-text">{today.text}</span>
+        <span class="today-date">{formatDate(today.date)}</span>
+      </a>
+    )
+  }
 
   <section class="rooms" aria-label="Rooms">
     {

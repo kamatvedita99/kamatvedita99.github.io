@@ -1,8 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import EntryList from '../../components/EntryList.astro';
-import { sections } from '../../site';
-import { getEntries } from '../../lib/entries';
+import LineList from '../../components/LineList.astro';
+import { sections, url } from '../../site';
+import { getEntries, getLines } from '../../lib/entries';
 
 // Astro builds one page per room listed in src/site.ts.
 export function getStaticPaths() {
@@ -11,6 +12,7 @@ export function getStaticPaths() {
 
 const { section } = Astro.props;
 const entries = await getEntries(section.slug);
+const lines = section.lines ? await getLines(section.slug) : null;
 
 // Rooms with shelves show one heading per shelf. Anything on an unknown shelf
 // (or none) goes under "More", so nothing ever disappears from the page.
@@ -31,6 +33,20 @@ if (section.shelves) {
   <p class="page-blurb">{section.blurb}</p>
 
   {
+    lines && (
+      <section class="shelf">
+        <h2 class="section-label">One line a day</h2>
+        <LineList lines={lines.slice(0, 5)} />
+        {lines.length > 5 && (
+          <a class="more" href={url(`/${section.slug}/lines/`)}>
+            All the lines →
+          </a>
+        )}
+      </section>
+    )
+  }
+
+  {
     groups ? (
       groups.map((g) => (
         <section class="shelf">
@@ -38,6 +54,11 @@ if (section.shelves) {
           <EntryList entries={g.entries} emptyText="Nothing on this shelf yet." />
         </section>
       ))
+    ) : lines ? (
+      <section class="shelf">
+        <h2 class="section-label">Entries</h2>
+        <EntryList entries={entries} />
+      </section>
     ) : (
       <EntryList entries={entries} />
     )

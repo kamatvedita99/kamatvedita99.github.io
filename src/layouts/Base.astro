@@ -28,6 +28,13 @@ const here = Astro.url.pathname;
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
     <title>{pageTitle}</title>
+    <script is:inline>
+      // Apply the lamp's saved choice before the page paints, so there's no flash.
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -45,6 +52,14 @@ const here = Astro.url.pathname;
             ))
           }
         </nav>
+        <button class="lamp" type="button" aria-pressed="false" aria-label="Lamp switch: turn the evening on or off" title="Lamp switch">
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <circle class="glow" cx="16" cy="15" r="11" fill="#f2c777" opacity="0.18" />
+            <path d="M9 16 12 5h8l3 11z" fill="currentColor" />
+            <path d="M16 16v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <ellipse cx="16" cy="27" rx="6" ry="1.8" fill="currentColor" />
+          </svg>
+        </button>
       </div>
     </header>
 
@@ -60,3 +75,26 @@ const here = Astro.url.pathname;
     </footer>
   </body>
 </html>
+
+<script>
+  // The lamp switch. With no choice made, the site follows the phone (day or evening).
+  // Tapping the lamp flips it, and the choice is remembered on this phone.
+  const root = document.documentElement;
+  const lamp = document.querySelector<HTMLButtonElement>('.lamp');
+  const media = matchMedia('(prefers-color-scheme: dark)');
+  const isDark = () => (root.dataset.theme ? root.dataset.theme === 'dark' : media.matches);
+  const sync = () => lamp?.setAttribute('aria-pressed', String(isDark()));
+
+  sync();
+  media.addEventListener('change', sync);
+  lamp?.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch (e) {
+      // storage can be blocked (private tabs); the lamp still works for this visit
+    }
+    sync();
+  });
+</script>

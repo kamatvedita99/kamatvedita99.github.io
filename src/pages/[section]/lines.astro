@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import LineList from '../../components/LineList.astro';
+import { sections, url } from '../../site';
+import { getLines } from '../../lib/entries';
+
+// One "all the lines" page for each room that keeps a daily line (see `lines` in site.ts).
+// A fixed name like "lines" wins over the [slug] page, so it never clashes with an entry.
+export function getStaticPaths() {
+  return sections.filter((s) => s.lines).map((section) => ({ params: { section: section.slug }, props: { section } }));
+}
+
+const { section } = Astro.props;
+const lines = await getLines(section.slug);
+---
+
+<Base title="One line a day" description="A single sentence for each day.">
+  <a class="back" href={url(`/${section.slug}/`)}>← {section.name}</a>
+  <h1 class="page-title">One line a day</h1>
+  <p class="page-blurb">A single sentence for each day.</p>
+  <LineList lines={lines} />
+</Base>

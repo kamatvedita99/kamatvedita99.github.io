@@ -17,8 +17,11 @@
   --hand: 'Caveat', 'Segoe Script', cursive;
 }
 
+/* Evening. It follows the phone's setting until the lamp switch picks a side,
+   and then the lamp's choice (remembered on that phone) wins. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
     --paper: #1f1a16;
     --paper-deep: #15110e;
     --card: #28211b;
@@ -32,6 +35,21 @@
     --lamp: rgba(255, 170, 90, 0.16);
   }
 }
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #1f1a16;
+  --paper-deep: #15110e;
+  --card: #28211b;
+  --ink: #eadfce;
+  --ink-soft: #a8998a;
+  --accent: #e08a68;
+  --line: #3a3128;
+  --rule: #332a22;
+  --margin: #6b3f33;
+  --frame: #5a3d2a;
+  --lamp: rgba(255, 170, 90, 0.16);
+}
+:root[data-theme='light'] { color-scheme: light; }
 
 * { box-sizing: border-box; }
 
@@ -66,6 +84,7 @@ a:hover { text-decoration-thickness: 2px; }
   border-bottom: 1px solid var(--line);
 }
 .site-header .wrap {
+  position: relative; /* the lamp switch sits in the top-right corner */
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -80,6 +99,28 @@ a:hover { text-decoration-thickness: 2px; }
   text-decoration: none;
   line-height: 1;
 }
+/* the lamp switch: tap it to turn the evening on or off */
+.lamp {
+  position: absolute;
+  top: -0.35rem;
+  right: 1.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0.35rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.lamp svg { display: block; width: 100%; height: 100%; }
+.lamp:hover { color: var(--accent); }
+.lamp:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.lamp .glow { opacity: 0; transition: opacity 0.25s ease; }
+.lamp[aria-pressed='true'] .glow { opacity: 0.22; }
+.lamp[aria-pressed='true'] { color: var(--knob); }
+
 .nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; font-size: 0.95rem; }
 .nav a { color: var(--ink-soft); text-decoration: none; }
 .nav a:hover, .nav a[aria-current='page'] { color: var(--accent); }
@@ -252,6 +293,40 @@ main { padding: 2rem 0 1rem; }
   font-size: 1rem;
   font-weight: 600;
 }
+
+/* one line a day */
+.today {
+  display: block;
+  max-width: 26rem;
+  margin: 1.75rem auto 0;
+  padding: 0.85rem 1.25rem 0.9rem;
+  background: var(--card);
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 0.15s ease;
+}
+.today:hover { border-color: var(--accent); }
+.today-label {
+  display: block;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  color: var(--accent);
+}
+.today-text { display: block; margin-top: 0.1rem; font-size: 1.15rem; font-style: italic; line-height: 1.55; }
+.today-date { display: block; margin-top: 0.25rem; font-size: 0.85rem; color: var(--ink-soft); }
+
+.line-list { list-style: none; margin: 0.25rem 0 0; padding: 0; }
+.line-list li { padding: 0.65rem 0; border-bottom: 1px dashed var(--line); }
+.line-list li:last-child { border-bottom: 0; }
+.line-date { display: block; font-size: 0.85rem; color: var(--ink-soft); }
+.line-text { display: block; font-style: italic; line-height: 1.6; }
+.more { display: inline-block; margin-top: 0.4rem; font-size: 0.95rem; }
+.back { display: inline-block; margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--ink-soft); }
 
 .page-title {
   font-family: var(--hand);

@@ -22,10 +22,13 @@ export type Section = {
   // optional shelves: the room's page groups entries under these headings.
   // An entry picks its shelf with `shelf: "..."` in its header.
   shelves?: string[];
+  // optional "one line a day" stream: single-sentence dated entries kept in
+  // src/content/entries/<slug>/lines/. The newest one also shows on the home page.
+  lines?: boolean;
 };
 
 export const sections: Section[] = [
-  { slug: 'journal', name: 'Journal', blurb: 'Days as they happen.', door: '#b5573a' },
+  { slug: 'journal', name: 'Journal', blurb: 'Days as they happen.', door: '#b5573a', lines: true },
   {
     slug: 'letters',
     name: 'Letters I Never Sent',

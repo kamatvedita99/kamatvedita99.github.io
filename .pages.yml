@@ -24,6 +24,21 @@ content:
         label: Entry
         type: rich-text
 
+  # One line a day. The sentence itself goes in "title"; no body is needed.
+  # These files live in journal/lines/ so the site shows them as short dated lines.
+  - name: one-line
+    label: One line today
+    type: collection
+    path: src/content/entries/journal/lines
+    filename: "{year}-{month}-{day}-{hour}{minute}{second}-line.md"
+    fields:
+      - name: title
+        label: Today, in one line
+        type: string
+      - name: date
+        label: Date
+        type: date
+
   - name: letters
     label: Letters I Never Sent
     type: collection

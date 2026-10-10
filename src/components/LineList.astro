@@ -1,0 +1,24 @@
+---
+import { formatDate, type Line } from '../lib/entries';
+
+interface Props {
+  lines: Line[];
+}
+
+const { lines } = Astro.props;
+---
+
+{
+  lines.length === 0 ? (
+    <p class="empty">No lines yet. One sentence is enough.</p>
+  ) : (
+    <ul class="line-list">
+      {lines.map((l) => (
+        <li>
+          <span class="line-date">{formatDate(l.date)}</span>
+          <span class="line-text">{l.text}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
